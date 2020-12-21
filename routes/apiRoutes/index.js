@@ -4,5 +4,7 @@ const router = require('express').Router();
 const animalRoutes = require('../apiRoutes/animalRoutes');
 
 router.use(animalRoutes);
+// notice the syntax change here...
+router.use(require('./zookeeperRoutes'));
 
 module.exports = router;
