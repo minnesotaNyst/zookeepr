@@ -117,6 +117,16 @@
         "hungry"
       ],
       "id": "11"
+    },
+    {
+      "name": "Bogey",
+      "species": "Dog",
+      "diet": "folivore",
+      "personalityTraits": [
+        "zany",
+        "anxious"
+      ],
+      "id": "12"
     }
   ]
 }

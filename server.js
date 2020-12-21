@@ -12,6 +12,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
+// more express.js middleware that instructs the server to make certain files readily availabe and to not gate it behind a server endpoint
+app.use(express.static('public'));
 
 function filterByQuery(query, animalsArray) {
 	let personalityTraitsArray = [];
@@ -123,6 +125,20 @@ app.post('/api/animals', (req, res) => {
 		res.json(animal);
 	}
 });
+
+// what we want here is for our index.html file to be served from our express.js server
+// notice that we don't have an actual name for the path, we use / to route us to the root of the server
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/animals', (req, res) => {
+	res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+	res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+  });
 
 //this is the method we use to make our server listen... '.listen()'
 //what is a port? it  is like a specific room on a college campus... (campus = host)
