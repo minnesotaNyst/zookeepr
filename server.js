@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 const PORT = process.env.PORT || 3001;
+// instantiate the server
+// we assign this to the app variable so that we can later chain on methods to the express.js server... (app.listen() for example)
 const app = express();
 
 // parse incoming string or array data
@@ -65,7 +67,8 @@ function createNewAnimal(body, animalsArray) {
 	const animal = body;
 	animalsArray.push(animal);
 	fs.writeFileSync(
-		// __dirname represents the directory of the file we execture the code in
+		// __dirname represents the directory of the file we execute the code in
+		// we are joining the value of the file where we execute the goce, with the path to the animal.json file
 		path.join(__dirname, './data/animals.json'),
 		JSON.stringify({ animals: animalsArray }, null, 2)
 	);
@@ -96,6 +99,7 @@ app.get('/api/animals', (req, res) => {
 	res.json(results);
 });
 
+// a param route (anything with :<parameter> ) must come after the other GET routes ^^
 app.get('/api/animals/:id', (req, res) => {
 	const result = findById(req.params.id, animals);
 	if (result) {
@@ -105,6 +109,8 @@ app.get('/api/animals/:id', (req, res) => {
 	}
 });
 
+// this sets up a route on our server that accepts data to be used or stored server side
+// notice the post request...this represents the action of a client requesting the server to accept data rather than vice versa
 app.post('/api/animals', (req, res) => {
 	// set id based on what the next index of the array will be
 	req.body.id = animals.length.toString();
@@ -118,6 +124,8 @@ app.post('/api/animals', (req, res) => {
 	}
 });
 
+//this is the method we use to make our server listen... '.listen()'
+//what is a port? it  is like a specific room on a college campus... (campus = host)
 app.listen(PORT, () => {
 	console.log(`API server now on port http://localhost:${PORT}`);
 });
